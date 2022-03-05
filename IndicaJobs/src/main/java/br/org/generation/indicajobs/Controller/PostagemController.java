@@ -29,7 +29,7 @@ public class PostagemController {
 	@Autowired
 	private PostagemRepository repository;
 
-	@GetMapping
+	@GetMapping()
 	public ResponseEntity<List<Postagem>> getAll() {
 		return ResponseEntity.ok(repository.findAll());
 	}
