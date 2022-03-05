@@ -1,3 +1,6 @@
+
+### Bem vindo ao Indica Job's 👋
+
 #  Projeto Integrador - Indica Job´s 
 
 <h1 align="center">
@@ -12,7 +15,6 @@ O IndicaJob's foi criado para ser apresentado como Projeto Final de grupo da Tur
 Com o objetivo de apresentar soluções técnológicas para alcançar a ODS 8 da ONU: Trabalho Decente e Crescimento Ecônomico.
 A idéia por trás do Projeto é criar uma rede social que consiga unir Empresas que possuam vagas e usuários que possam ser indicados ou que indiquem outros usuários para essas vagas, por meio de postagens.
 
----
 
 ## ⚙️ Funcionalidades
 Perfil de Administrador:
@@ -34,3 +36,4 @@ Perfil de Administrador:
   </tr>
  
 </table>
+

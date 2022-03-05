@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +22,6 @@ import br.org.generation.indicajobs.Repository.UsuarioRepository;
 import br.org.generation.indicajobs.Service.UsuarioService;
 import br.org.generation.indicajobs.model.Usuario;
 import br.org.generation.indicajobs.model.UsuarioLogin;
-
-
 
 @RestController
 @RequestMapping("/usuarios")
@@ -49,6 +49,16 @@ public class UsuarioController {
 			.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
 	
+	@GetMapping("/tipo/{tipo}")
+	public ResponseEntity <List<Usuario>> GetByTipo (@PathVariable String tipo){
+		return ResponseEntity.ok(usuarioRepository.findAllByTipoContainingIgnoreCase(tipo));
+	}
+	
+	@GetMapping("/{idUsuario}")
+	public ResponseEntity<Usuario> GetByIdUsuario(@PathVariable long idUsuario){
+		return usuarioRepository.findById(idUsuario).map(resp -> ResponseEntity.ok(resp)).orElse(ResponseEntity.notFound().build());
+	}
+	
 	@PostMapping("/cadastrar")
 	public ResponseEntity<Usuario> postUsuario(@Valid @RequestBody Usuario usuario){
 		
@@ -63,5 +73,14 @@ public class UsuarioController {
 			.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(resposta))
 			.orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
-
+	
+	@DeleteMapping("/{idUsuario}")
+	public ResponseEntity<?> deleteUsuario(@PathVariable long idUsuario) {
+		return usuarioRepository.findById(idUsuario)
+				.map(resp -> {
+					usuarioRepository.deleteById(idUsuario);
+					return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+				})
+				.orElse(ResponseEntity.notFound().build());
+	}
 }
